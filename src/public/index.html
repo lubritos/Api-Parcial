@@ -3,15 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Consultar Stock</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="/js/scripts.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-
-<body>
-  <h1>Consultar Stock de Producto</h1>
-  <label for="nombre">Nombre del producto:</label>
-  <input type="text" id="nombre" placeholder="Ej: Alfajor">
-  <button onclick="consultarStock()">Consultar</button>
-  <div id="stockDisplay"></div>
+<body> 
+  <main class=" flex w-[22rem] h-screen bg-white">
+    <form id="form-login" method="post" action=""
+    class="flex flex-col items-center justify-center w-full h-96 rounded-md">
+      <div class="flex flex-col w-[14rem] ">
+        <label for="nombre" class="p-1" >Usuario:</label>
+        <div class="relative ">
+          <i class="fa-solid fa-user mr-2 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="nombre" class="w-full pl-10 py-2 border rounded-sm" name="nombre">
+        </div>
+      </div>
+      <div class="flex flex-col w-[14rem] ">
+        <label for="password" class="p-1">Contraseña:</label>
+        <div class="relative">
+          <i class="fa-solid fa-lock mr-2 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="password" class="w-full pl-10 py-2 border rounded-sm focus-visible:outline-none" id="pasword" name="nombre">
+        </div>
+      </div>
+      <div class="flex flex-col w-[14rem] mt-4">
+        <button type="button" onclick="ingresar()"class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">Ingresar</button>
+        <button type="button" onclick="ingresar()"class="border-indigo-500 hover:bg-indigo-700 text-indigo-500 hover:text-white font-bold py-2 px-4 w-full rounded">Crear Usuario</button>
+      </div>
+      <div id="stockDisplay"></div>
+    </form>
+  </main>
+  <script src="/js/scripts.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ const Productroute = require('./routes/products.routes');
 const Shiftroute = require('./routes/shift.routes');
 const Clientroute = require('./routes/client.routes');
 
-
+const path = require('path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
