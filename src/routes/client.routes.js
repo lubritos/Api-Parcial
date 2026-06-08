@@ -3,11 +3,15 @@ const path = require('path');
 const router = Router();
 
 router.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+});
+router.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/registrar.html'));
 });
 
 router.get('/product', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/product.html'));
+    res.sendFile(path.join(__dirname, '../../public/product.html'));
 });
+
 
 module.exports = router;

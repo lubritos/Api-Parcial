@@ -1,6 +1,8 @@
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
+}
+.banner-login {
     background-image: url('../images/banner-login.jpg');
     background-size: cover;
     background-repeat: no-repeat;

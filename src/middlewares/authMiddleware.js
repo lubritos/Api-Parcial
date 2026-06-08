@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 const SECRET = 'mi_clave_secreta';
 
 function autenticarJWT(req, res, next) {
-  const token = req.cookies.token;
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
     return res.status(401).json({ error: 'Acceso denegado. Token no proporcionado.' });

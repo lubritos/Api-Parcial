@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="banner-login">
+    <main class=" flex w-[22rem] h-screen bg-white">
+        <form id="form-login" method="post" action=""
+        class="flex flex-col items-center justify-center w-full rounded-md">
+        <div class="flex flex-col w-[14rem]">
+            <label for="rol" class="p-1">Nombre y Apellido:</label>
+            <select name="rol" id="rol" class="w-full pl-10 py-2 border rounded-sm" required>
+                <option value="admin">Admin</option>
+                <option value="user">Cliente</option>
+            </select>           
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="username" class="p-1">Nombre y Apellido:</label>
+            <input 
+                type="text" 
+                id="username"
+                class="w-full pl-10 py-2 border rounded-sm" name="username"
+                required
+            />            
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="dni" class="p-1" >DNI:</label>
+            <input 
+                type="number" 
+                id="dni"
+                class="w-full pl-10 py-2 border rounded-sm" 
+                name="dni"
+                required
+            />            
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="socialwork" class="p-1">Obra social:</label>
+            <input 
+                type="text" 
+                id="socialwork" 
+                class="w-full pl-10 py-2 border rounded-sm" 
+                name="socialwork"
+                required
+            />         
+        </div>
+        <div class="flex flex-col w-[14rem] ">
+            <label for="password" class="p-1">Contraseña:</label>
+            <input 
+                type="password" 
+                class="w-full pl-10 py-2 border rounded-sm focus-visible:outline-none" 
+                id="password" 
+                name="password"
+                required
+            />
+        </div>
+        <div class="flex flex-col w-[14rem] mt-4">
+            <button type="button" onclick="javascript:createUser()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">Crear</button>
+        </div>
+        <div id="stockDisplay"></div>
+        </form>
+    </main>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/register.js"></script>
+</body>
+</html>
