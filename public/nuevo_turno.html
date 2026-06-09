@@ -15,25 +15,18 @@
 <body class="banner-login">
     <main class="flex flex-col w-[22rem] h-screen bg-white">
         <h3 id="titulo" class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
-            Nuevo Profesional
+            Nuevo Turno
         </h3>
         <form id="form-login" method="post" action=""
         class="flex flex-col items-center justify-center w-full rounded-md">
         
         <div class="flex flex-col w-[14rem]">
-            <label for="nombre" class="p-1">Nombre Completo:</label>
-            <input 
-                type="text" 
-                id="nombre"
-                class="w-full pl-2 py-2 border rounded-sm" name="nombre"
-                required
-            />            
-        </div>
-        <div class="flex flex-col w-[14rem]">
-            <label for="especialidad" class="p-1" >Especialidad:</label>
+            <label for="nombre" class="p-1">Especialidad:</label>
             <select name="especialidad" 
+            onchange="javascript:selectProfesional()"
             id="especialidad" class="w-full pl-2 py-2 border rounded-sm" >
-                <option selected="selected" value="ALERGIA">ALERGIA</option>
+                <option selected="selected" value="admin">Seleccione especialidad</option>
+                <option value="ALERGIA">ALERGIA</option>
                 <option value="ANATOMIA PATOLOGICA">ANATOMIA PATOLOGICA</option>
                 <option value="BIOQUIMICA">BIOQUIMICA</option>
                 <option value="CARDIOLOGIA">CARDIOLOGIA</option>
@@ -68,14 +61,26 @@
             </select>
         </div>
         <div class="flex flex-col w-[14rem]">
-            <label for="descripcion" class="p-1">Descripcion:</label>
-            <textarea 
-                id="descripcion" 
-                class="w-full pl-2 py-2 border rounded-sm" 
-                name="descripcion"
-                placeholder="Ingrese una descripcion"
-            ></textarea>       
+            <label for="profesional" class="p-1" >Profesional:</label>
+            <select 
+                type="text" 
+                id="profesional"
+                class="w-full pl-2 py-2 border rounded-sm" name="profesional"
+            >
+                <option value="admin">Seleccione profesional</option>
+            </select>
         </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="fecha" class="p-1">Fecha:</label>
+            <input  type="date" id="fecha" class="w-full pl-2 py-2 border rounded-sm" name="fecha"/>
+
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="hora" class="p-1">Hora:</label>
+            <input  type="time" id="hora" class="w-full pl-2 py-2 border rounded-sm" name="hora"/>
+
+        </div>
+        <input type="hidden" id="paciente" name="paciente" value="Luciana" />
         <div class="flex flex-col w-[14rem] mt-4">
             <button
                 type="button"
@@ -92,42 +97,60 @@
     <script src="/js/register.js"></script>
     <script src="/js/edit_remove.js"></script>
     <script>
-        function getProfesional(id) {
-            GenericApiData(`/api/profesional/${id}`, 'GET').then(response => {
-                console.log(response);
+        function selectProfesional() {
+            GenericApiData(`/api/profesional`, 'GET').then(response => {
                 if (!response) return
-                document.getElementById('nombre').value = response.nombre;
-                document.getElementById('especialidad').value = response.especialidad;
-                document.getElementById('descripcion').value = response.descripcion;
+                let html = ''
+                const selected = document.getElementById('especialidad').value
+                const element = document.getElementById('profesional');
+                const filtered = response.filter(profesional => profesional.especialidad === selected);
+                filtered.forEach(profesional => {
+                    html += `<option value="${profesional._id}">${profesional.nombre}</option>`; 
+                })
+                element.innerHTML = html
             })
         }
-        function getProfesionalId() {
+        function getTurno(id) {
+            GenericApiData(`/api/turno/${id}`, 'GET').then(response => {
+                console.log(response);
+                if (!response) return
+                document.getElementById('especialidad').value = response.especialidad;
+                selectProfesional();
+                document.getElementById('profesional').value = response.profesional;
+                document.getElementById('fecha').value = response.fecha;
+                document.getElementById('hora').value = response.hora;
+            })
+        }
+        function getTurnoData() {
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
-            const profesionalId = urlSplit[urlSplit.length - 1];
-            console.log(profesionalId);
-            if (profesionalId && profesionalId !== 'nuevo_profesional') {
-                document.getElementById('titulo').innerHTML = 'Actualizar Profesional';
+            const turnoId = urlSplit[urlSplit.length - 1];
+            console.log(turnoId);
+            if (turnoId && turnoId !== 'nuevo_turno') {
+                document.getElementById('titulo').innerHTML = 'Actualizar Turno';
                 document.getElementById('form-btn').innerHTML = 'Actualizar';
-                getProfesional(profesionalId);
+                getTurno(turnoId);
             }
         }
 
         function handleClick() {
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
-            const profesionalId = urlSplit[urlSplit.length - 1];
-            if (profesionalId && profesionalId !== 'nuevo_profesional') {
-                editProfesional(profesionalId, {
-                    nombre: document.getElementById('nombre').value,
+            const turnoId = urlSplit[urlSplit.length - 1];
+            if (turnoId && turnoId !== 'nuevo_turno') {
+                editTurno(turnoId, {
+                    profesional: document.getElementById('profesional').value,
                     especialidad: document.getElementById('especialidad').value,
-                    descripcion: document.getElementById('descripcion').value
+                    fecha: document.getElementById('fecha').value,
+                    hora: document.getElementById('hora').value,
+                    paciente: document.getElementById('paciente').value,
                 });
                 return
             }
-            createProfesional();
+            createTurno();
         }
-        getProfesionalId();
+
+        getTurnoData()
     </script>
 </body>
 </html>

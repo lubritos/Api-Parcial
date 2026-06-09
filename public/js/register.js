@@ -57,3 +57,21 @@ function createProfesional() {
     }
     redirectPage('profesional');
 }        
+function createTurno() {
+    if (!validateTurno()) {
+        return;
+    }
+    const response = GenericApiData('/api/turno', 'POST', {
+        profesional: document.getElementById('profesional').value,
+        especialidad: document.getElementById('especialidad').value,
+        fecha: document.getElementById('fecha').value,
+        hora: document.getElementById('hora').value,
+        paciente: document.getElementById('paciente').value
+    })
+
+    if (response.error) {
+        alert(response.message);
+        return;
+    }
+    redirectPage('turno');
+}

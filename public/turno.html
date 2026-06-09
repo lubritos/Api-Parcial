@@ -19,6 +19,7 @@
             </h1>
             <button
                 type="button" 
+                onclick="javascript: redirectPage('nuevo_turno')" 
                 class="flex flex-row items-center justify-center w-40 h-12 rounded-md bg-indigo-500 text-white text-center ">
                 <i class="fa-solid fa-calendar-check mr-2 text-sm"></i>
                 <h3 class="font-bold text-md gap-1 uppercase">
@@ -30,13 +31,13 @@
             <thead>
                 <tr>
                     <th class="border-b border-gray-200 p-4 pt-0 pb-3 pl-8 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
-                        Nombre
+                        Profesional
                     </th>
                     <th class="border-b border-gray-200 p-4 pt-0 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
                         Especialidad
                     </th>
                     <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
-                        Descripcion
+                        fecha y hora
                     </th>
                     <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
                         Acciones
@@ -44,17 +45,19 @@
                 </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800" id="informacion">
-                <tr>
-                    <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">Malcolm Lockyer</td>
-                    <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">1961</td>
-                </tr>
+                <tr class="py-4">
+                <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
+                    No hay turnos registrados
+                </td>
+            </tr>
             </tbody>
         </table>
     </main>
     <script src="/js/scripts.js"></script>
+    <script src="/js/edit_remove.js"></script>
+
     <script>
-        listProfesional();
+        listTurno();
     </script>
 </body>
 </html>
