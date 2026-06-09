@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turno</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <main class="p-2">
+        <div class="flex w-full items-center justify-around">
+            <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
+                Mis Turnos
+            </h1>
+            <button
+                type="button" 
+                class="flex flex-row items-center justify-center w-40 h-12 rounded-md bg-indigo-500 text-white text-center ">
+                <i class="fa-solid fa-calendar-check mr-2 text-sm"></i>
+                <h3 class="font-bold text-md gap-1 uppercase">
+                    Nuevo Turno
+                </h3>
+            </button>
+        </div>
+        <table class="w-full table-fixed border-collapse text-sm px-2">
+            <thead>
+                <tr>
+                    <th class="border-b border-gray-200 p-4 pt-0 pb-3 pl-8 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Nombre
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Especialidad
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Descripcion
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-800" id="informacion">
+                <tr>
+                    <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                    <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">Malcolm Lockyer</td>
+                    <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">1961</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <script src="/js/scripts.js"></script>
+    <script>
+        listProfesional();
+    </script>
+</body>
+</html>

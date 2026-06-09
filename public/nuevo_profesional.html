@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Profesional</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="banner-login">
+    <main class="flex flex-col w-[22rem] h-screen bg-white">
+        <h3 id="titulo" class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
+            Nuevo Profesional
+        </h3>
+        <form id="form-login" method="post" action=""
+        class="flex flex-col items-center justify-center w-full rounded-md">
+        
+        <div class="flex flex-col w-[14rem]">
+            <label for="nombre" class="p-1">Nombre Completo:</label>
+            <input 
+                type="text" 
+                id="nombre"
+                class="w-full pl-2 py-2 border rounded-sm" name="nombre"
+                required
+            />            
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="especialidad" class="p-1" >Especialidad:</label>
+            <input 
+                type="text" 
+                id="especialidad"
+                class="w-full pl-2 py-2 border rounded-sm" 
+                name="especialidad"
+                required
+            />
+        </div>
+        <div class="flex flex-col w-[14rem]">
+            <label for="descripcion" class="p-1">Descripcion:</label>
+            <textarea 
+                id="descripcion" 
+                class="w-full pl-2 py-2 border rounded-sm" 
+                name="descripcion"
+                placeholder="Ingrese una descripcion"
+            ></textarea>       
+        </div>
+        <div class="flex flex-col w-[14rem] mt-4">
+            <button
+                type="button"
+                id="form-btn"
+                onclick="javascript:handleClick()"
+                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
+                Crear
+            </button>
+        </div>
+        </form>
+    </main>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/validateForm.js"></script>
+    <script src="/js/register.js"></script>
+    <script src="/js/edit_remove.js"></script>
+    <script>
+        function getProfesional(id) {
+            GenericApiData(`/api/profesional/${id}`, 'GET').then(response => {
+                console.log(response);
+                if (!response) return
+                document.getElementById('nombre').value = response.nombre;
+                document.getElementById('especialidad').value = response.especialidad;
+                document.getElementById('descripcion').value = response.descripcion;
+            })
+        }
+        function getProfesionalId() {
+            const pathName = document.location.pathname
+            const urlSplit = pathName.split('/');
+            const profesionalId = urlSplit[urlSplit.length - 1];
+            console.log(profesionalId);
+            if (profesionalId && profesionalId !== 'nuevo_profesional') {
+                document.getElementById('titulo').innerHTML = 'Actualizar Profesional';
+                document.getElementById('form-btn').innerHTML = 'Actualizar';
+                getProfesional(profesionalId);
+            }
+        }
+
+        function handleClick() {
+            const pathName = document.location.pathname
+            const urlSplit = pathName.split('/');
+            const profesionalId = urlSplit[urlSplit.length - 1];
+            if (profesionalId && profesionalId !== 'nuevo_profesional') {
+                editProfesional(profesionalId, {
+                    nombre: document.getElementById('nombre').value,
+                    especialidad: document.getElementById('especialidad').value,
+                    descripcion: document.getElementById('descripcion').value
+                });
+                return
+            }
+            createProfesional();
+        }
+        getProfesionalId();
+    </script>
+</body>
+</html>

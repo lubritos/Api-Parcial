@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { ClientConnection } = require("../config/db");
+const { generateToken } = require("../services/jwtService");
 
 const loginUser = async (req, res) => {
     try {
@@ -18,9 +18,10 @@ const loginUser = async (req, res) => {
                 error: true
             });
         }
+        const payload = { id: findUser.id, username: findUser.username, rol: findUser.rol };
         res.status(200).json({
             message: 'Login exitoso',
-            token: generateToken(findUser),
+            token: generateToken(payload),
             rol: findUser.rol,
             error: false,
         });

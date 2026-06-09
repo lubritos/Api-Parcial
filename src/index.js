@@ -3,8 +3,8 @@ const express = require('express');
 const { connectDB } = require('./config/db');
 // Routest
 const Authroute = require('./routes/auth.routes');
-const Productroute = require('./routes/products.routes');
-const Shiftroute = require('./routes/shift.routes');
+const Profesionalroute = require('./routes/profesional.routes');
+const Turnoroute = require('./routes/turno.routes');
 const Clientroute = require('./routes/client.routes');
 
 const path = require('path');
@@ -18,8 +18,8 @@ connectDB();
 app.use('/', Clientroute);
 
 app.use("/api", Authroute);
-app.use('/api/product', Productroute);
-app.use('/api/shift', Shiftroute);
+app.use('/api/profesional', Profesionalroute);
+app.use('/api/turno', Turnoroute);
 
 app.listen(3000, () => {
     console.log('Esta escuchando en el puerto 3000!');

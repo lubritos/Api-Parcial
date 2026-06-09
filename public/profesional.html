@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesional</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <main class="p-2">
+        <div class="flex w-full items-center justify-around">
+            <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
+                Profesionales
+            </h1>
+            <button
+                type="button" 
+                onclick="javascript: redirectPage('nuevo_profesional')"
+                class="flex flex-row items-center cursor-pointer justify-center w-40 h-12 rounded-md bg-indigo-500 text-white text-center ">
+                <i class="fa-solid fa-user mr-2 text-sm"></i>
+                <h3 class="font-bold text-md gap-1 uppercase">
+                    Nuevo Profesional
+                </h3>
+            </button>
+        </div>
+        <table class="w-full table-fixed border-collapse text-sm px-2">
+            <thead>
+                <tr>
+                    <th class="border-b border-gray-200 p-4 pt-0 pb-3 pl-8 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Nombre
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Especialidad
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Descripcion
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody
+                id="informacion"
+                class="bg-white dark:bg-gray-800"
+            >
+            <tr class="py-4">
+                <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
+                    No hay profesionales registrados
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/edit_remove.js"></script>
+    <script>
+        listProfesional();
+    </script>
+</body>
+</html>

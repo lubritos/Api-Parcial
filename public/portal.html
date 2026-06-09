@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,19 +13,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <main>
+    <main class="p-2">
         <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">Turnos</h1>
-        <div class="flex items-center justify-center">
-            <div class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-[40rem] h-[10rem] mt-8 mx-8 bg-white border border-indigo-500">
-            <div class="flex items-center">
-                <i class="fa-solid fa-calendar mr-2 text-4xl"></i>
-                    <h3 class="font-bold text-3xl gap-1 uppercase">
-                        Nuevo Turno
-                    </h3>
-            </div>
-                <span class="text-lg mt-4 text-black">Agenda tu proxima consulta</span>
-            </div>
-            <div class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-[40rem] h-[10rem] mt-8 mx-8  bg-white border border-indigo-500">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 items-center justify-center">
+            <div
+            onclick="javascript: redirectPage('turnos')"
+            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500">
                 <div class="flex items-center">
                     <i class="fa-solid fa-calendar-check mr-2 text-4xl"></i>
                     <h3 class="font-bold text-3xl gap-1 uppercase">
@@ -33,6 +26,17 @@
                     </h3>
                 </div>
                 <span class="text-lg mt-4 text-black">Revisa y gestioná tus turnos próximos</span>
+            </div>
+            <div
+            onclick="javascript: redirectPage('profesional')" 
+            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-calendar-check mr-2 text-4xl"></i>
+                    <h3 class="font-bold text-3xl gap-1 uppercase">
+                        Profesionales
+                    </h3>
+                </div>
+                <span class="text-lg mt-4 text-black">Revisa y gestioná los profesionales</span>
             </div>
         </div>
     </main>

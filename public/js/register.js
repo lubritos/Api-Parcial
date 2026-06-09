@@ -16,22 +16,10 @@ async function loginUser() {
         alert(response.message);
         return;
     }
-    redirectToProduct();
+    redirectPage('portal');
     } catch (error) {
         console.error(error);
     }
-}
-
-function validateForm() {
-    const username = document.getElementById('username').value;
-    const dni = document.getElementById('dni').value;
-    const socialwork = document.getElementById('socialwork').value;
-    const password = document.getElementById('password').value;
-    if (username === '' || dni === '' || socialwork === '' || password === '') {
-        alert('Todos los campos son obligatorios');
-        return false;
-    }
-    return true;
 }
 
 function createUser() {
@@ -50,5 +38,22 @@ function createUser() {
         alert(response.message);
         return;
     }
-    redirectToProduct();
+    redirectPage('portal');
+}        
+
+function createProfesional() {
+    if (!validateProfesional()) {
+        return;
+    }
+    const response = GenericApiData('/api/profesional', 'POST', {
+        nombre: document.getElementById('nombre').value,
+        especialidad: document.getElementById('especialidad').value,
+        descripcion: document.getElementById('descripcion').value,
+    })
+
+    if (response.error) {
+        alert(response.message);
+        return;
+    }
+    redirectPage('profesional');
 }        
