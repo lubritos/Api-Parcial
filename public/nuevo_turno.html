@@ -78,9 +78,20 @@
         <div class="flex flex-col w-[14rem]">
             <label for="hora" class="p-1">Hora:</label>
             <input  type="time" id="hora" class="w-full pl-2 py-2 border rounded-sm" name="hora"/>
-
         </div>
-        <input type="hidden" id="paciente" name="paciente" value="Luciana" />
+        <div class="flex flex-col w-[14rem]">
+            <label for="estado" class="p-1" >Profesional:</label>
+            <select 
+                type="text" 
+                id="estado"
+                class="w-full pl-2 py-2 border rounded-sm" name="estado"
+            >
+                <option selected value="Pendiente">Pendiente</option>
+                <option  value="Pendiente">Enviado</option>
+                <option  value="Pendiente">Cancelado</option>
+            </select>
+        </div>
+        <input type="hidden" id="paciente" name="paciente" value="" />
         <div class="flex flex-col w-[14rem] mt-4">
             <button
                 type="button"
@@ -94,8 +105,7 @@
     </main>
     <script src="/js/scripts.js"></script>
     <script src="/js/validateForm.js"></script>
-    <script src="/js/register.js"></script>
-    <script src="/js/edit_remove.js"></script>
+    <script src="/js/crud.js"></script>
     <script>
         function selectProfesional() {
             GenericApiData(`/api/profesional`, 'GET').then(response => {
@@ -112,20 +122,19 @@
         }
         function getTurno(id) {
             GenericApiData(`/api/turno/${id}`, 'GET').then(response => {
-                console.log(response);
                 if (!response) return
                 document.getElementById('especialidad').value = response.especialidad;
                 selectProfesional();
                 document.getElementById('profesional').value = response.profesional;
                 document.getElementById('fecha').value = response.fecha;
                 document.getElementById('hora').value = response.hora;
+                document.getElementById('estado').value = response.estado;
             })
         }
         function getTurnoData() {
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
             const turnoId = urlSplit[urlSplit.length - 1];
-            console.log(turnoId);
             if (turnoId && turnoId !== 'nuevo_turno') {
                 document.getElementById('titulo').innerHTML = 'Actualizar Turno';
                 document.getElementById('form-btn').innerHTML = 'Actualizar';
@@ -133,24 +142,43 @@
             }
         }
 
-        function handleClick() {
-            const pathName = document.location.pathname
-            const urlSplit = pathName.split('/');
-            const turnoId = urlSplit[urlSplit.length - 1];
-            if (turnoId && turnoId !== 'nuevo_turno') {
-                editTurno(turnoId, {
+        function createTurno() {
+            createItem({
+                endpoint: 'turno',
+                data: {
                     profesional: document.getElementById('profesional').value,
                     especialidad: document.getElementById('especialidad').value,
                     fecha: document.getElementById('fecha').value,
                     hora: document.getElementById('hora').value,
                     paciente: document.getElementById('paciente').value,
+                    estado: 'Pendiente'
+                },
+                redirect: 'turno'
+            })
+        }
+
+        function handleClick() {
+            const pathName = document.location.pathname
+            const urlSplit = pathName.split('/');
+            const turnoId = urlSplit[urlSplit.length - 1];
+            if (turnoId && turnoId !== 'nuevo_turno') {
+                editItem(turnoId, 'turno', {
+                    profesional: document.getElementById('profesional').value,
+                    especialidad: document.getElementById('especialidad').value,
+                    fecha: document.getElementById('fecha').value,
+                    hora: document.getElementById('hora').value,
+                    paciente: document.getElementById('paciente').value,
+                    estado: document.getElementById('estado').value
                 });
                 return
             }
             createTurno();
         }
-
         getTurnoData()
+        const userId = getUserId();
+        if (userId) {
+            document.getElementById('paciente').value = userId;
+        }
     </script>
 </body>
 </html>

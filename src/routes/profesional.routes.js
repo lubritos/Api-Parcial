@@ -1,15 +1,16 @@
 const { Router } = require("express");
 const { editProfesional, listProfesional, getProfesionalId, createProfesional, removeProfesional } = require("../controller/profesional.controller");
+const autenticarJWT = require('../middlewares/authMiddleware');
 const router = Router();
 
-router.get("/", listProfesional)
+router.get("/", autenticarJWT, listProfesional)
 
-router.get("/:id", getProfesionalId)
+router.get("/:id", autenticarJWT, getProfesionalId)
 
-router.post('/', createProfesional)
+router.post('/', autenticarJWT, createProfesional)
 
-router.put('/:id', editProfesional)
+router.put('/:id', autenticarJWT, editProfesional)
 
-router.delete('/:id', removeProfesional)
+router.delete('/:id', autenticarJWT, removeProfesional)
 
 module.exports = router;

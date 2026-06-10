@@ -89,12 +89,10 @@
     </main>
     <script src="/js/scripts.js"></script>
     <script src="/js/validateForm.js"></script>
-    <script src="/js/register.js"></script>
-    <script src="/js/edit_remove.js"></script>
+    <script src="/js/crud.js"></script>
     <script>
         function getProfesional(id) {
             GenericApiData(`/api/profesional/${id}`, 'GET').then(response => {
-                console.log(response);
                 if (!response) return
                 document.getElementById('nombre').value = response.nombre;
                 document.getElementById('especialidad').value = response.especialidad;
@@ -105,7 +103,6 @@
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
             const profesionalId = urlSplit[urlSplit.length - 1];
-            console.log(profesionalId);
             if (profesionalId && profesionalId !== 'nuevo_profesional') {
                 document.getElementById('titulo').innerHTML = 'Actualizar Profesional';
                 document.getElementById('form-btn').innerHTML = 'Actualizar';
@@ -113,12 +110,24 @@
             }
         }
 
+        function createProfesional() {
+            createItem({
+                endpoint: 'profesional',
+                data: {
+                    nombre: document.getElementById('nombre').value,
+                    especialidad: document.getElementById('especialidad').value,
+                    descripcion: document.getElementById('descripcion').value
+                },
+                redirect: 'profesional'
+            })
+        }
+
         function handleClick() {
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
             const profesionalId = urlSplit[urlSplit.length - 1];
             if (profesionalId && profesionalId !== 'nuevo_profesional') {
-                editProfesional(profesionalId, {
+                editItem(profesionalId, 'profesional', {
                     nombre: document.getElementById('nombre').value,
                     especialidad: document.getElementById('especialidad').value,
                     descripcion: document.getElementById('descripcion').value

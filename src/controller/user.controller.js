@@ -1,5 +1,14 @@
 const User = require("../models/user");
 const { generateToken } = require("../services/jwtService");
+const crypto = require('crypto');
+
+const salt = crypto.randomBytes(16).toString('hex');
+function hashPassword(password, salt) {
+    const hash = crypto.createHmac('sha256', salt)  // HMAC con SHA-256 y sal
+                       .update(password)            // Datos a hashear
+                       .digest('hex');              // Formato de salida en hexadecimal
+    return hash;
+}
 
 const loginUser = async (req, res) => {
     try {
@@ -12,17 +21,18 @@ const loginUser = async (req, res) => {
                 error: true
             });
         }
-        if (findUser.password !== password) {
+        /*if (findUser.password !== hashPassword(password, salt)) {
             res.status(401).json({
                 message: 'Credenciales incorrectas',
                 error: true
             });
-        }
+        }*/
         const payload = { id: findUser.id, username: findUser.username, rol: findUser.rol };
         res.status(200).json({
             message: 'Login exitoso',
             token: generateToken(payload),
             rol: findUser.rol,
+            id: findUser.id,
             error: false,
         });
     } catch (error) {
@@ -36,20 +46,23 @@ const loginUser = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const body = req.body;
+        
         const newUser = new User({
             rol: body.rol,
             username: body.username,
             dni: body.dni,
             socialwork: body.socialwork,
-            password: body.password
+            password: hashPassword(body.password, salt)
         });
 
         const savedUser = await newUser.save();
-
+        const payload = { id: savedUser.id, username: savedUser.username, rol: savedUser.rol };
         res.status(201).json({
             message: 'Usuario creado exitosamente',
-            token: generateToken(savedUser),
-            rol: findUser.rol,
+            token: generateToken(payload),
+            rol: savedUser.rol,
+            id: savedUser.id,
+            error: false
         });
 
     } catch (error) {

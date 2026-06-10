@@ -1,4 +1,4 @@
-function validateForm() {
+function validateUser() {
     const username = document.getElementById('username').value;
     const dni = document.getElementById('dni').value;
     const socialwork = document.getElementById('socialwork').value;
@@ -30,4 +30,10 @@ function validateTurno() {
         return false;
     }
     return true;
+}
+
+function validateForm(type) {
+    if (type === 'user') return validateUser();
+    if (type === 'profesional') return validateProfesional();
+    if (type === 'turno') return validateTurno();
 }

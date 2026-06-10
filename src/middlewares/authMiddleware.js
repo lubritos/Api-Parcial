@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const SECRET = 'mi_clave_secreta';
+const SECRET = 'supersecretkey';
 
 function autenticarJWT(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -11,8 +11,8 @@ function autenticarJWT(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    req.user = decoded; // Guardamos el user en el request para usar más adelante
-    next(); // Permite continuar al siguiente middleware o controlador
+    req.user = decoded;
+    next();
   } catch (err) {
     return res.status(403).json({ error: 'Token inválido o expirado.' });
   }

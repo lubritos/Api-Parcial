@@ -28,8 +28,11 @@
                 <span class="text-lg mt-4 text-black">Revisa y gestioná tus turnos próximos</span>
             </div>
             <div
+            id="profesional"
             onclick="javascript: redirectPage('profesional')" 
-            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500">
+            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500"
+            style="display:none"
+            >
                 <div class="flex items-center">
                     <i class="fa-solid fa-calendar-check mr-2 text-4xl"></i>
                     <h3 class="font-bold text-3xl gap-1 uppercase">
@@ -41,6 +44,10 @@
         </div>
     </main>
     <script src="/js/scripts.js"></script>
-
+    <script>
+        const isAdmin = getRol() === 'admin' ? true : false;
+        const profesional = document.querySelector('#profesional');
+        profesional.style.display = isAdmin ? 'flex' : 'none';
+    </script>
 </body>
 </html>

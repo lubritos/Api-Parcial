@@ -27,6 +27,52 @@
                 </h3>
             </button>
         </div>
+        <div class="grid grid-cols-1 sm:grid-cols-[60px_1fr_1fr] gap-2 py-4">
+            <h2 class="font-bold text-md gap-1 text-indigo-500">Filtrar:</h2>
+            <select
+            onchange="javascript: filtrarTurnos()"    
+            class="w-full pl-2 py-2 border rounded-sm"
+                id="filtroEspecialidad">
+                <option selected="selected" value="">Seleccione especialidad</option>
+                <option value="ALERGIA">ALERGIA</option>
+                <option value="ANATOMIA PATOLOGICA">ANATOMIA PATOLOGICA</option>
+                <option value="BIOQUIMICA">BIOQUIMICA</option>
+                <option value="CARDIOLOGIA">CARDIOLOGIA</option>
+                <option value="CIRUGIA PLASTICA">CIRUGIA PLASTICA</option>
+                <option value="CLINICA MEDICA">CLINICA MEDICA</option>
+                <option value="DERMATOLOGÍA">DERMATOLOGÍA</option>
+                <option value="ECOGRAFIA">ECOGRAFIA</option>
+                <option value="ENDOCRINOLOGIA">ENDOCRINOLOGIA</option>
+                <option value="ESTETICA MEDICA">ESTETICA MEDICA</option>
+                <option value="FLEBOLOGIA">FLEBOLOGIA</option>
+                <option value="FONOAUDIOLOGÍA">FONOAUDIOLOGÍA</option>
+                <option value="GASTROENTEROLOGIA">GASTROENTEROLOGIA</option>
+                <option value="GINECOLOGIA PATOLOGIA MAMARIA">GINECOLOGIA PATOLOGIA MAMARIA</option>
+                <option value="GINECOLOGIA Y OBSTERICIA">GINECOLOGIA Y OBSTERICIA</option>
+                <option value="KINESIOLOGIA">KINESIOLOGIA</option>
+                <option value="LABORATORIO">LABORATORIO</option>
+                <option value="NEUMONOLOGIA">NEUMONOLOGIA</option>
+                <option value="NEUROCIRUGÍA">NEUROCIRUGÍA</option>
+                <option value="NEUROLOGIA">NEUROLOGIA</option>
+                <option value="NUTRICIONISTA">NUTRICIONISTA</option>
+                <option value="ODONTOLOGIA">ODONTOLOGIA</option>
+                <option value="OFTALMOLOGIA">OFTALMOLOGIA</option>
+                <option value="OSTEOPATIA">OSTEOPATIA</option>
+                <option value="OTORRINOLARINGOLOGA">OTORRINOLARINGOLOGA</option>
+                <option value="PEDIATRIA">PEDIATRIA</option>
+                <option value="PSICOLOGÍA">PSICOLOGÍA</option>
+                <option value="PSICOPEDAGOGÍA">PSICOPEDAGOGÍA</option>
+                <option value="PSIQUIATRIA">PSIQUIATRIA</option>
+                <option value="REUMATOLOGIA">REUMATOLOGIA</option>
+                <option value="TRAUMATOLOGIA">TRAUMATOLOGIA</option>
+                <option value="UROLOGIA">UROLOGIA</option>
+            </select>
+            <select
+            onchange="javascript: filtrarTurnos()"
+                class="w-full pl-2 py-2 border rounded-sm" id="filtroProfesional">
+                <option selected="selected" value="">Seleccione especialidad</option>
+            </select>
+        </div>
         <table class="w-full table-fixed border-collapse text-sm px-2">
             <thead>
                 <tr>
@@ -46,18 +92,38 @@
             </thead>
             <tbody class="bg-white dark:bg-gray-800" id="informacion">
                 <tr class="py-4">
-                <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
-                    No hay turnos registrados
-                </td>
-            </tr>
+                    <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
+                        No hay turnos registrados
+                    </td>
+                </tr>
             </tbody>
         </table>
     </main>
     <script src="/js/scripts.js"></script>
-    <script src="/js/edit_remove.js"></script>
-
+    <script src="/js/crud.js"></script>
     <script>
+
+        function filtrarTurnos() {
+            const profesional = document.getElementById('filtroProfesional').value;
+            const especialidad = document.getElementById('filtroEspecialidad').value;
+            listTurno({
+                type: profesional ? 'profesional' : 'especialidad',
+                value: profesional || especialidad
+            });
+        }
+        function completarFiltroProfesional() {
+            let html = '<option selected="selected" value="">Seleccione especialidad</option>';
+            const element = document.getElementById('filtroProfesional');
+            GenericApiData('/api/profesional', 'GET').then((data) => {
+                if (!data.length) return
+                data.forEach(element => {
+                    html += `<option value="${element._id}">${element.nombre}</option>`;
+                });
+                element.innerHTML = html
+            });
+        }
         listTurno();
+        completarFiltroProfesional();
     </script>
 </body>
 </html>

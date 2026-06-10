@@ -20,15 +20,15 @@
             <label for="rol" class="p-1">Nombre y Apellido:</label>
             <select name="rol" id="rol" class="w-full pl-10 py-2 border rounded-sm" required>
                 <option value="admin">Admin</option>
-                <option value="user">Paciente</option>
+                <option value="paciente">Paciente</option>
             </select>           
         </div>
         <div class="flex flex-col w-[14rem]">
-            <label for="username" class="p-1">Nombre y Apellido:</label>
+            <label for="username" class="p-1">Email:</label>
             <input 
-                type="text" 
+                type="email" 
                 id="username"
-                class="w-full pl-10 py-2 border rounded-sm" name="username"
+                class="w-full pl-2 py-2 border rounded-sm" name="username"
                 required
             />            
         </div>
@@ -37,14 +37,14 @@
             <input 
                 type="number" 
                 id="dni"
-                class="w-full pl-10 py-2 border rounded-sm" 
+                class="w-full pl-2 py-2 border rounded-sm" 
                 name="dni"
                 required
             />            
         </div>
         <div class="flex flex-col w-[14rem]">
             <label for="socialwork" class="p-1">Obra social:</label>
-            <select name="socialwork" id="socialwork" class="w-full pl-10 py-2 border rounded-sm" >
+            <select name="socialwork" id="socialwork" class="w-full pl-2 py-2 border rounded-sm" >
                 <option value="0">&lt;&lt;Sin Asignar&gt;&gt;</option>
                 <option value="APROSS">APROSS</option>
                 <option value="AVALIAN">AVALIAN</option>
@@ -112,20 +112,35 @@
             <label for="password" class="p-1">Contraseña:</label>
             <input 
                 type="password" 
-                class="w-full pl-10 py-2 border rounded-sm focus-visible:outline-none" 
+                class="w-full pl-2 py-2 border rounded-sm focus-visible:outline-none" 
                 id="password" 
                 name="password"
                 required
             />
         </div>
         <div class="flex flex-col w-[14rem] mt-4">
-            <button type="button" onclick="javascript:createUser()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">Crear</button>
+            <button type="button" onclick="javascript:handleClick()" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">Crear</button>
         </div>
         <div id="stockDisplay"></div>
         </form>
     </main>
     <script src="/js/scripts.js"></script>
     <script src="/js/validateForm.js"></script>
-    <script src="/js/register.js"></script>
+    <script src="/js/crud.js"></script>
+    <script>
+        function handleClick() {
+            createItem({
+                endpoint: 'user',
+                data: {
+                    rol: document.getElementById('rol').value,
+                    username: document.getElementById('username').value,
+                    dni: document.getElementById('dni').value,
+                    socialwork: document.getElementById('socialwork').value,
+                    password: document.getElementById('password').value
+                },
+                redirect: 'login'
+            })
+        }
+    </script>
 </body>
 </html>

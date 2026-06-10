@@ -6,6 +6,7 @@ const turnoSchema = new mongoose.Schema({
   fecha: { type: String },
   hora: { type: String },
   paciente: { type: String },
+  estado: { type: String },
 }, { collection: 'turnos'});
 
 const turno = mongoose.model('Turno', turnoSchema);
