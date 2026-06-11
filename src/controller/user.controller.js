@@ -1,13 +1,9 @@
 const User = require("../models/user");
 const { generateToken } = require("../services/jwtService");
-const crypto = require('crypto');
+const { createHash } = require('crypto');
 
-const salt = crypto.randomBytes(16).toString('hex');
-function hashPassword(password, salt) {
-    const hash = crypto.createHmac('sha256', salt)  // HMAC con SHA-256 y sal
-                       .update(password)            // Datos a hashear
-                       .digest('hex');              // Formato de salida en hexadecimal
-    return hash;
+function hashPassword(password) {
+    return createHash('sha256').update(password).digest('base64');
 }
 
 const loginUser = async (req, res) => {
@@ -16,17 +12,17 @@ const loginUser = async (req, res) => {
         const findUser = await User.findOne({ username });
 
         if (!findUser) {
-            res.status(404).json({
+            return res.status(404).json({
                 message: 'Usuario no encontrado',
                 error: true
             });
         }
-        /*if (findUser.password !== hashPassword(password, salt)) {
-            res.status(401).json({
+        if (findUser.password !== hashPassword(password)) {
+            return res.status(401).json({
                 message: 'Credenciales incorrectas',
                 error: true
             });
-        }*/
+        }
         const payload = { id: findUser.id, username: findUser.username, rol: findUser.rol };
         res.status(200).json({
             message: 'Login exitoso',
@@ -52,7 +48,7 @@ const createUser = async (req, res) => {
             username: body.username,
             dni: body.dni,
             socialwork: body.socialwork,
-            password: hashPassword(body.password, salt)
+            password: hashPassword(body.password)
         });
 
         const savedUser = await newUser.save();
@@ -64,9 +60,7 @@ const createUser = async (req, res) => {
             id: savedUser.id,
             error: false
         });
-
     } catch (error) {
-        console.error(error);
         res.status(500).json({
             message: error.message,
             error: true

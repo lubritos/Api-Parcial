@@ -3,7 +3,7 @@ const Profesional = require('../models/profesional');
 const createProfesional = async (req, res) => {
     try {
         if (req.user.rol !== 'admin') {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'No autorizado',
                 error: false,
             });
@@ -32,7 +32,7 @@ const createProfesional = async (req, res) => {
 async function editProfesional(req, res) {
     try {
         if (req.user.rol !== 'admin') {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'No autorizado',
                 error: false,
             });
@@ -67,7 +67,7 @@ async function listProfesional(req, res) {
 async function getProfesionalId(req, res) {
     try {
         if (req.user.rol !== 'admin') {
-            res.status(401).json({
+            return res.status(401).json({
                 message: 'No autorizado',
                 error: false,
             });

@@ -47,7 +47,7 @@ async function listTurno(req, res) {
     try {
         if (req.user.rol !== 'admin') {
             const listTurnos = await Turno.find({ paciente: req.user.id });
-            res.json(listTurnos);
+            return res.json(listTurnos);
         }
         const listTurnos = await Turno.find();
         res.json(listTurnos);
