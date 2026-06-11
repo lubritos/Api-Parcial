@@ -9,9 +9,15 @@ jest.mock('bcrypt', () => ({
 describe('POST /turnos', () => {
 
   test('Debe crear un turno correctamente', async () => {
-
+    const user = await request(app)
+            .post('/api/login')
+            .send({
+            username: 'luciana.britos@test.com',
+            password: 'Naranja18',
+            });
     const res = await request(app)
-      .post('/turnos')
+      .post('/api/turno')
+      .set('Authorization', `Bearer ${user.body.token}`)
       .send({
         profesional: '684a123456',
         especialidad: 'Cardiología',

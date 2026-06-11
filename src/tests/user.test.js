@@ -10,10 +10,10 @@ describe('loginUser', () => {
     test('Debe loguear correctamente', async () => {
 
         const res = await request(app)
-        .post('/login')
+        .post('/api/login')
         .send({
-        username: 'luciano',
-        password: 'hash_guardado',
+        username: 'luciana.britos@test.com',
+        password: 'Naranja18',
         });
 
         expect(res.body.message).toBe('Login exitoso');
