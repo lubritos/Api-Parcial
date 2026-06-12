@@ -1,5 +1,6 @@
 const Turno = require('../models/Turno');
 const Profesional = require('../models/profesional');
+const User = require("../models/user");
 
 const createTurno = async (req, res) => {
     try {
@@ -47,23 +48,31 @@ async function editTurno(req, res) {
 async function listTurno(req, res) {
     try {
         const profesionales = await Profesional.find();
+        const pacientes = await User.find();
         const mapProfesionales = {};
+        const mapPacientes = {};
 
         profesionales.forEach(p => {
             mapProfesionales[p._id] = p.nombre;
+        });
+
+        pacientes.forEach(p => {
+            mapPacientes[p._id] = p.username;
         });
 
         if (req.user.rol !== 'admin') {
             const listTurnos = await Turno.find({ paciente: req.user.id })
             return res.json(listTurnos.map(turno => ({
             ...turno.toObject(),
-            profesional: mapProfesionales[turno.profesional] || 'Sin profesional'
+            profesional: mapProfesionales[turno.profesional] || 'Sin profesional',
+            paciente: mapPacientes[turno.paciente] || ' - '
         })));
         }
         const listTurnos = await Turno.find();
         res.json(listTurnos.map(turno => ({
             ...turno.toObject(),
-            profesional: mapProfesionales[turno.profesional] || 'Sin profesional'
+            profesional: mapProfesionales[turno.profesional] || 'Sin profesional',
+            paciente: mapPacientes[turno.paciente] || ' - '
         })));
     } catch (error) {
         res.status(500).json({

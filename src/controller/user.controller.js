@@ -68,7 +68,20 @@ const createUser = async (req, res) => {
     }
 };
 
+async function listUsers(req, res) {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error al listar Usuarios',
+            error: false,
+        });
+    }
+}
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    listUsers
 }

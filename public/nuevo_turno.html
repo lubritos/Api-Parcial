@@ -54,7 +54,16 @@
             </h3>
             <form id="form-login" method="post" action=""
             class="flex flex-col items-center justify-center w-[22rem]">
-            
+            <div id="GroupPaciente" class="flex flex-col w-[14rem]">
+                <label for="paciente" class="p-1" >Paciente:</label>
+                <select 
+                    type="text" 
+                    id="paciente"
+                    class="w-full pl-2 py-2 border rounded-sm" name="paciente"
+                >
+                    <option value="">Seleccione paciente</option>
+                </select>
+            </div>
             <div class="flex flex-col w-[14rem]">
                 <label for="nombre" class="p-1">Especialidad:</label>
                 <select name="especialidad" 
@@ -126,7 +135,7 @@
                     <option  value="Pendiente">Cancelado</option>
                 </select>
             </div>
-            <input type="hidden" id="paciente" name="paciente" value="" />
+            <input type="hidden" id="pacienteId" name="pacienteId" value="" />
             <div class="flex flex-col w-[14rem] mt-4">
                 <button
                     type="button"
@@ -151,9 +160,31 @@
     <script src="/js/crud.js"></script>
     <script>
         const isAdmin = getRol() === 'admin' ? true : false;
+        const btnProfesionales = document.getElementById('btnProfesionales');
+        const groupPaciente = document.getElementById('GroupPaciente');
         if (!isAdmin) {
-           const btnProfesionales = document.getElementById('btnProfesionales');
-           btnProfesionales.style.display = 'none';
+            btnProfesionales.style.display = 'none';
+            groupPaciente.style.display = 'none';
+        } else {
+            btnProfesionales.style.display = 'flex';
+            groupPaciente.style.display = 'flex';
+            selectPacientes();
+        }
+        const userId = getUserId();
+        if (userId && !isAdmin) {
+            document.getElementById('pacienteId').value = userId;
+        }
+        function selectPacientes() {
+            GenericApiData(`/api/user`, 'GET').then(response => {
+                if (!response) return
+                let html = '<option selected="selected" value="">Seleccione Paciente</option>';
+                const selected = document.getElementById('paciente').value
+                const element = document.getElementById('paciente');
+                response.forEach(user => {
+                    html += `<option value="${user._id}">${user.username}</option>`; 
+                })
+                element.innerHTML = html
+            })
         }
         function selectProfesional() {
             GenericApiData(`/api/profesional`, 'GET').then(response => {
@@ -191,6 +222,10 @@
         }
 
         function createTurno() {
+            let pacienteId = document.getElementById('pacienteId').value
+            if (getRol() === 'admin') {
+                pacienteId = document.getElementById('paciente').value
+            }
             createItem({
                 endpoint: 'turno',
                 data: {
@@ -198,7 +233,7 @@
                     especialidad: document.getElementById('especialidad').value,
                     fecha: document.getElementById('fecha').value,
                     hora: document.getElementById('hora').value,
-                    paciente: document.getElementById('paciente').value,
+                    paciente: pacienteId,
                     estado: 'Pendiente'
                 },
                 redirect: 'turno'
@@ -223,10 +258,6 @@
             createTurno();
         }
         getTurnoData()
-        const userId = getUserId();
-        if (userId) {
-            document.getElementById('paciente').value = userId;
-        }
     </script>
 </body>
 </html>
