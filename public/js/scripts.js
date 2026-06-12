@@ -19,6 +19,10 @@ async function loginUser() {
     try {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        if (!validateEmail(document.getElementById('username').value)) {
+            alert('El correo electrónico no es válido');
+            return;
+        }
         if (username === '' || password === '') {
             alert('Todos los campos son obligatorios');
             return;

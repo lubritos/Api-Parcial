@@ -183,6 +183,10 @@
     <script src="/js/crud.js"></script>
     <script>
         function handleClick() {
+            if (!validateEmail(document.getElementById('username').value)) {
+                alert('El correo electrónico no es válido');
+                return;
+            }
             createItem({
                 endpoint: 'user',
                 data: {
@@ -192,7 +196,7 @@
                     socialwork: document.getElementById('socialwork').value,
                     password: document.getElementById('password').value
                 },
-                redirect: 'login'
+                redirect: 'portal'
             })
         }
     </script>
