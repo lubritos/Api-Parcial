@@ -1,4 +1,5 @@
 const Turno = require('../models/Turno');
+const Profesional = require('../models/profesional');
 
 const createTurno = async (req, res) => {
     try {
@@ -45,12 +46,25 @@ async function editTurno(req, res) {
 
 async function listTurno(req, res) {
     try {
+        const profesionales = await Profesional.find();
+        const mapProfesionales = {};
+
+        profesionales.forEach(p => {
+            mapProfesionales[p._id] = p.nombre;
+        });
+
         if (req.user.rol !== 'admin') {
-            const listTurnos = await Turno.find({ paciente: req.user.id });
-            return res.json(listTurnos);
+            const listTurnos = await Turno.find({ paciente: req.user.id })
+            return res.json(listTurnos.map(turno => ({
+            ...turno.toObject(),
+            profesional: mapProfesionales[turno.profesional] || 'Sin profesional'
+        })));
         }
         const listTurnos = await Turno.find();
-        res.json(listTurnos);
+        res.json(listTurnos.map(turno => ({
+            ...turno.toObject(),
+            profesional: mapProfesionales[turno.profesional] || 'Sin profesional'
+        })));
     } catch (error) {
         res.status(500).json({
             message: 'Error al traer Turnos',

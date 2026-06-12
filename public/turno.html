@@ -12,20 +12,72 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <main class="p-2">
-        <div class="flex w-full items-center justify-around">
+    <main class="flex flex-col">
+    <nav class="bg-indigo-600 text-white shadow-md">
+    <div class="mx-4 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-hospital text-2xl"></i>
+            <div class="text-xs font-bold">
+                <span>Centro de salud</span>
+                <h1 class="text-2xl font-bold">
+                    San Rafael
+                </h1>
+                </div>
+        </div>
+        <div class="flex gap-3">
+            <button
+                onclick="redirectPage('portal')"
+                class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                Inicio
+            </button>
+
+            <button
+                onclick="redirectPage('turno')"
+                class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                Mis Turnos
+            </button>
+
+            <button
+                id="btnProfesionales"
+                onclick="redirectPage('profesional')"
+                class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                Profesionales
+            </button>
+            <button
+                id="btnCerrarSecion"
+                onclick="logoutUser()"
+                title="Cerrar secion"
+                class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+    </nav>
+    <div class="p-2"> 
+                <div class="flex w-full items-center justify-around">
             <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
                 Mis Turnos
             </h1>
-            <button
-                type="button" 
-                onclick="javascript: redirectPage('nuevo_turno')" 
-                class="flex flex-row items-center justify-center w-40 h-12 rounded-md bg-indigo-500 text-white text-center ">
-                <i class="fa-solid fa-calendar-check mr-2 text-sm"></i>
-                <h3 class="font-bold text-md gap-1 uppercase">
-                    Nuevo Turno
-                </h3>
-            </button>
+            <div class="flex flex-row gap-4">
+                <button
+                    type="button" 
+                    onclick="javascript: redirectPage('portal')" 
+                    class="flex flex-row items-center justify-center w-full p-2 rounded-md bg-indigo-500 text-white text-center ">
+                    <i class="fa-solid fa-user mr-2 text-sm"></i>
+                    <h3 class="font-bold text-xs gap-1 uppercase">
+                        Portal Paciente
+                    </h3>
+                </button>
+                <button
+                    type="button" 
+                    onclick="javascript: redirectPage('nuevo_turno')" 
+                    class="flex flex-row items-center justify-center w-full p-2 rounded-md bg-indigo-500 text-white text-center ">
+                    <i class="fa-solid fa-calendar-check mr-2 text-sm"></i>
+                    <h3 class="font-bold text-xs gap-1 uppercase">
+                        Nuevo Turno
+                    </h3>
+                </button>
+            </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-[60px_1fr_1fr] gap-2 py-4">
             <h2 class="font-bold text-md gap-1 text-indigo-500">Filtrar:</h2>
@@ -70,7 +122,7 @@
             <select
             onchange="javascript: filtrarTurnos()"
                 class="w-full pl-2 py-2 border rounded-sm" id="filtroProfesional">
-                <option selected="selected" value="">Seleccione especialidad</option>
+                <option selected="selected" value="">Seleccione profesional</option>
             </select>
         </div>
         <table class="w-full table-fixed border-collapse text-sm px-2">
@@ -98,11 +150,18 @@
                 </tr>
             </tbody>
         </table>
+    </div>
     </main>
     <script src="/js/scripts.js"></script>
     <script src="/js/crud.js"></script>
     <script>
-
+        const isAdmin = getRol() === 'admin' ? true : false;
+        const btnProfesionales = document.getElementById('btnProfesionales');
+        if (!isAdmin) {
+            btnProfesionales.style.display = 'none';
+        } else {
+            btnProfesionales.style.display = 'flex';
+        }
         function filtrarTurnos() {
             const profesional = document.getElementById('filtroProfesional').value;
             const especialidad = document.getElementById('filtroEspecialidad').value;
@@ -112,12 +171,12 @@
             });
         }
         function completarFiltroProfesional() {
-            let html = '<option selected="selected" value="">Seleccione especialidad</option>';
+            let html = '<option selected="selected" value="">Seleccione Profesional</option>';
             const element = document.getElementById('filtroProfesional');
             GenericApiData('/api/profesional', 'GET').then((data) => {
                 if (!data.length) return
                 data.forEach(element => {
-                    html += `<option value="${element._id}">${element.nombre}</option>`;
+                    html += `<option value="${element.nombre}">${element.nombre}</option>`;
                 });
                 element.innerHTML = html
             });

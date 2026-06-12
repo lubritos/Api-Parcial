@@ -44,7 +44,7 @@ function logoutUser() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userId');
     sessionStorage.removeItem('rol');
-    redirectPage('login');
+    redirectPage('');
 }
 
 function getUserId() {

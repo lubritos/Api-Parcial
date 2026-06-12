@@ -13,12 +13,56 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <main class="p-2">
-        <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">Turnos</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 items-center justify-center">
+    <main class="flex flex-col">
+        <nav class="bg-indigo-600 text-white shadow-md">
+        <div class="mx-4 px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-hospital text-2xl"></i>
+                <div class="text-xs font-bold">
+                    <span>Centro de salud</span>
+                    <h1 class="text-2xl font-bold">
+                        San Rafael
+                    </h1>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button
+                    onclick="redirectPage('portal')"
+                    class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                    Inicio
+                </button>
+
+                <button
+                    onclick="redirectPage('turno')"
+                    class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                    Mis Turnos
+                </button>
+
+                <button
+                    id="btnProfesionales"
+                    onclick="redirectPage('profesional')"
+                    class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                    Profesionales
+                </button>
+                <button
+                    id="btnCerrarSecion"
+                    onclick="logoutUser()"
+                    title="Cerrar secion"
+                    class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="p-2">
+        <h1 class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
+            Mi Portal        
+        </h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mx-8 items-center justify-center">
             <div
             onclick="javascript: redirectPage('turno')"
-            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500">
+            class="hover:scale-[1.05] active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[8rem] bg-white border border-indigo-500">
                 <div class="flex items-center">
                     <i class="fa-solid fa-calendar-check mr-2 text-4xl"></i>
                     <h3 class="font-bold text-3xl gap-1 uppercase">
@@ -30,24 +74,32 @@
             <div
             id="profesional"
             onclick="javascript: redirectPage('profesional')" 
-            class="hover:scale-105 active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[10rem] bg-white border border-indigo-500"
+            class="hover:scale-[1.05] active:bg-indigo-500 active:text-white text-indigo-500 p-6 rounded-md flex flex-col w-full h-[8rem] bg-white border border-indigo-500"
             style="display:none"
             >
-                <div class="flex items-center">
-                    <i class="fa-solid fa-calendar-check mr-2 text-4xl"></i>
-                    <h3 class="font-bold text-3xl gap-1 uppercase">
-                        Profesionales
-                    </h3>
-                </div>
-                <span class="text-lg mt-4 text-black">Revisa y gestioná los profesionales</span>
+            <div class="flex items-center">
+                <i class="fa-solid fa-users mr-2 text-4xl"></i>
+                <h3 class="font-bold text-3xl gap-1 uppercase">
+                    Profesionales
+                </h3>
+            </div>
+            <span class="text-lg mt-4 text-black">Revisa y gestioná los profesionales</span>
             </div>
         </div>
+    </div>
     </main>
     <script src="/js/scripts.js"></script>
     <script>
         const isAdmin = getRol() === 'admin' ? true : false;
-        const profesional = document.querySelector('#profesional');
-        profesional.style.display = isAdmin ? 'flex' : 'none';
+        const btnProfesionales = document.getElementById('btnProfesionales');
+        const profesional = document.getElementById('profesional');
+        if (!isAdmin) {
+            btnProfesionales.style.display = 'none';
+            profesional.style.display = 'none';
+        } else {
+            btnProfesionales.style.display = 'flex';
+            profesional.style.display = 'flex';
+        }
     </script>
 </body>
 </html>

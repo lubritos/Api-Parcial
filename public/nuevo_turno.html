@@ -12,101 +12,149 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="banner-login">
-    <main class="flex flex-col w-[22rem] h-screen bg-white">
-        <h3 id="titulo" class="font-bold text-5xl gap-1 text-indigo-500 text-center my-8">
-            Nuevo Turno
-        </h3>
-        <form id="form-login" method="post" action=""
-        class="flex flex-col items-center justify-center w-full rounded-md">
-        
-        <div class="flex flex-col w-[14rem]">
-            <label for="nombre" class="p-1">Especialidad:</label>
-            <select name="especialidad" 
-            onchange="javascript:selectProfesional()"
-            id="especialidad" class="w-full pl-2 py-2 border rounded-sm" >
-                <option selected="selected" value="admin">Seleccione especialidad</option>
-                <option value="ALERGIA">ALERGIA</option>
-                <option value="ANATOMIA PATOLOGICA">ANATOMIA PATOLOGICA</option>
-                <option value="BIOQUIMICA">BIOQUIMICA</option>
-                <option value="CARDIOLOGIA">CARDIOLOGIA</option>
-                <option value="CIRUGIA PLASTICA">CIRUGIA PLASTICA</option>
-                <option value="CLINICA MEDICA">CLINICA MEDICA</option>
-                <option value="DERMATOLOGÍA">DERMATOLOGÍA</option>
-                <option value="ECOGRAFIA">ECOGRAFIA</option>
-                <option value="ENDOCRINOLOGIA">ENDOCRINOLOGIA</option>
-                <option value="ESTETICA MEDICA">ESTETICA MEDICA</option>
-                <option value="FLEBOLOGIA">FLEBOLOGIA</option>
-                <option value="FONOAUDIOLOGÍA">FONOAUDIOLOGÍA</option>
-                <option value="GASTROENTEROLOGIA">GASTROENTEROLOGIA</option>
-                <option value="GINECOLOGIA PATOLOGIA MAMARIA">GINECOLOGIA PATOLOGIA MAMARIA</option>
-                <option value="GINECOLOGIA Y OBSTERICIA">GINECOLOGIA Y OBSTERICIA</option>
-                <option value="KINESIOLOGIA">KINESIOLOGIA</option>
-                <option value="LABORATORIO">LABORATORIO</option>
-                <option value="NEUMONOLOGIA">NEUMONOLOGIA</option>
-                <option value="NEUROCIRUGÍA">NEUROCIRUGÍA</option>
-                <option value="NEUROLOGIA">NEUROLOGIA</option>
-                <option value="NUTRICIONISTA">NUTRICIONISTA</option>
-                <option value="ODONTOLOGIA">ODONTOLOGIA</option>
-                <option value="OFTALMOLOGIA">OFTALMOLOGIA</option>
-                <option value="OSTEOPATIA">OSTEOPATIA</option>
-                <option value="OTORRINOLARINGOLOGA">OTORRINOLARINGOLOGA</option>
-                <option value="PEDIATRIA">PEDIATRIA</option>
-                <option value="PSICOLOGÍA">PSICOLOGÍA</option>
-                <option value="PSICOPEDAGOGÍA">PSICOPEDAGOGÍA</option>
-                <option value="PSIQUIATRIA">PSIQUIATRIA</option>
-                <option value="REUMATOLOGIA">REUMATOLOGIA</option>
-                <option value="TRAUMATOLOGIA">TRAUMATOLOGIA</option>
-                <option value="UROLOGIA">UROLOGIA</option>
-            </select>
-        </div>
-        <div class="flex flex-col w-[14rem]">
-            <label for="profesional" class="p-1" >Profesional:</label>
-            <select 
-                type="text" 
-                id="profesional"
-                class="w-full pl-2 py-2 border rounded-sm" name="profesional"
-            >
-                <option value="admin">Seleccione profesional</option>
-            </select>
-        </div>
-        <div class="flex flex-col w-[14rem]">
-            <label for="fecha" class="p-1">Fecha:</label>
-            <input  type="date" id="fecha" class="w-full pl-2 py-2 border rounded-sm" name="fecha"/>
+<body class="">
+    <main class="banner flex flex-col">
+        <nav class="bg-indigo-600 text-white shadow-md">
+            <div class="mx-4 px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-hospital text-2xl"></i>
+                    <div class="text-xs font-bold">
+                        <span>Centro de salud</span>
+                        <h1 class="text-2xl font-bold">
+                                San Rafael
+                        </h1>
+                    </div>
+                </div>
 
+                <div class="flex gap-3">
+                    <button
+                        onclick="redirectPage('portal')"
+                        class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                        Inicio
+                    </button>
+
+                    <button
+                        onclick="redirectPage('turno')"
+                        class="px-4 py-2 rounded hover:bg-indigo-500 transition">
+                        Mis Turnos
+                    </button>
+
+                    <button
+                        id="btnProfesionales"
+                        onclick="redirectPage('profesional')"
+                        class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                        Profesionales
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div class="flex flex-col items-center justify-center rounded-md w-[22rem] bg-white my-8 mx-[5rem]">
+            <h3 id="titulo" class="font-bold text-3xl gap-1 text-indigo-500 text-center my-8">
+                Nuevo Turno
+            </h3>
+            <form id="form-login" method="post" action=""
+            class="flex flex-col items-center justify-center w-[22rem]">
+            
+            <div class="flex flex-col w-[14rem]">
+                <label for="nombre" class="p-1">Especialidad:</label>
+                <select name="especialidad" 
+                onchange="javascript:selectProfesional()"
+                id="especialidad" class="w-full pl-2 py-2 border rounded-sm" >
+                    <option selected="selected" value="admin">Seleccione especialidad</option>
+                    <option value="ALERGIA">ALERGIA</option>
+                    <option value="ANATOMIA PATOLOGICA">ANATOMIA PATOLOGICA</option>
+                    <option value="BIOQUIMICA">BIOQUIMICA</option>
+                    <option value="CARDIOLOGIA">CARDIOLOGIA</option>
+                    <option value="CIRUGIA PLASTICA">CIRUGIA PLASTICA</option>
+                    <option value="CLINICA MEDICA">CLINICA MEDICA</option>
+                    <option value="DERMATOLOGÍA">DERMATOLOGÍA</option>
+                    <option value="ECOGRAFIA">ECOGRAFIA</option>
+                    <option value="ENDOCRINOLOGIA">ENDOCRINOLOGIA</option>
+                    <option value="ESTETICA MEDICA">ESTETICA MEDICA</option>
+                    <option value="FLEBOLOGIA">FLEBOLOGIA</option>
+                    <option value="FONOAUDIOLOGÍA">FONOAUDIOLOGÍA</option>
+                    <option value="GASTROENTEROLOGIA">GASTROENTEROLOGIA</option>
+                    <option value="GINECOLOGIA PATOLOGIA MAMARIA">GINECOLOGIA PATOLOGIA MAMARIA</option>
+                    <option value="GINECOLOGIA Y OBSTERICIA">GINECOLOGIA Y OBSTERICIA</option>
+                    <option value="KINESIOLOGIA">KINESIOLOGIA</option>
+                    <option value="LABORATORIO">LABORATORIO</option>
+                    <option value="NEUMONOLOGIA">NEUMONOLOGIA</option>
+                    <option value="NEUROCIRUGÍA">NEUROCIRUGÍA</option>
+                    <option value="NEUROLOGIA">NEUROLOGIA</option>
+                    <option value="NUTRICIONISTA">NUTRICIONISTA</option>
+                    <option value="ODONTOLOGIA">ODONTOLOGIA</option>
+                    <option value="OFTALMOLOGIA">OFTALMOLOGIA</option>
+                    <option value="OSTEOPATIA">OSTEOPATIA</option>
+                    <option value="OTORRINOLARINGOLOGA">OTORRINOLARINGOLOGA</option>
+                    <option value="PEDIATRIA">PEDIATRIA</option>
+                    <option value="PSICOLOGÍA">PSICOLOGÍA</option>
+                    <option value="PSICOPEDAGOGÍA">PSICOPEDAGOGÍA</option>
+                    <option value="PSIQUIATRIA">PSIQUIATRIA</option>
+                    <option value="REUMATOLOGIA">REUMATOLOGIA</option>
+                    <option value="TRAUMATOLOGIA">TRAUMATOLOGIA</option>
+                    <option value="UROLOGIA">UROLOGIA</option>
+                </select>
+            </div>
+            <div class="flex flex-col w-[14rem]">
+                <label for="profesional" class="p-1" >Profesional:</label>
+                <select 
+                    type="text" 
+                    id="profesional"
+                    class="w-full pl-2 py-2 border rounded-sm" name="profesional"
+                >
+                    <option value="admin">Seleccione profesional</option>
+                </select>
+            </div>
+            <div class="flex flex-col w-[14rem]">
+                <label for="fecha" class="p-1">Fecha:</label>
+                <input  type="date" id="fecha" class="w-full pl-2 py-2 border rounded-sm" name="fecha"/>
+
+            </div>
+            <div class="flex flex-col w-[14rem]">
+                <label for="hora" class="p-1">Hora:</label>
+                <input  type="time" id="hora" class="w-full pl-2 py-2 border rounded-sm" name="hora"/>
+            </div>
+            <div class="flex flex-col w-[14rem]">
+                <label for="estado" class="p-1" >Estado:</label>
+                <select 
+                    type="text" 
+                    id="estado"
+                    class="w-full pl-2 py-2 border rounded-sm" name="estado"
+                >
+                    <option selected value="Pendiente">Pendiente</option>
+                    <option  value="Pendiente">Enviado</option>
+                    <option  value="Pendiente">Cancelado</option>
+                </select>
+            </div>
+            <input type="hidden" id="paciente" name="paciente" value="" />
+            <div class="flex flex-col w-[14rem] mt-4">
+                <button
+                    type="button"
+                    id="form-btn"
+                    onclick="javascript:handleClick()"
+                    class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
+                    Crear
+                </button>
+            <div class="flex flex-col w-[14rem] mt-1">
+                <button type="button" onclick="javascript:redirectPage('')" 
+                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full"
+                >
+                Cancelar
+                </button>
+            </div>
+            </div>
+            </form>
         </div>
-        <div class="flex flex-col w-[14rem]">
-            <label for="hora" class="p-1">Hora:</label>
-            <input  type="time" id="hora" class="w-full pl-2 py-2 border rounded-sm" name="hora"/>
-        </div>
-        <div class="flex flex-col w-[14rem]">
-            <label for="estado" class="p-1" >Profesional:</label>
-            <select 
-                type="text" 
-                id="estado"
-                class="w-full pl-2 py-2 border rounded-sm" name="estado"
-            >
-                <option selected value="Pendiente">Pendiente</option>
-                <option  value="Pendiente">Enviado</option>
-                <option  value="Pendiente">Cancelado</option>
-            </select>
-        </div>
-        <input type="hidden" id="paciente" name="paciente" value="" />
-        <div class="flex flex-col w-[14rem] mt-4">
-            <button
-                type="button"
-                id="form-btn"
-                onclick="javascript:handleClick()"
-                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
-                Crear
-            </button>
-        </div>
-        </form>
     </main>
     <script src="/js/scripts.js"></script>
     <script src="/js/validateForm.js"></script>
     <script src="/js/crud.js"></script>
     <script>
+        const isAdmin = getRol() === 'admin' ? true : false;
+        if (!isAdmin) {
+           const btnProfesionales = document.getElementById('btnProfesionales');
+           btnProfesionales.style.display = 'none';
+        }
         function selectProfesional() {
             GenericApiData(`/api/profesional`, 'GET').then(response => {
                 if (!response) return

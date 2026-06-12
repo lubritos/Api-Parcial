@@ -80,17 +80,23 @@ function listProfesional() {
 }
 
 async function getDataProfesional(id) {
-    return await GenericApiData(`/api/profesional/${id}`, 'GET')
+    try {
+        return await GenericApiData(`/api/profesional/${id}`, 'GET');
+    } catch (error) {
+        console.error("Error obteniendo profesional:", error);
+        return null;
+    }
 }
 function listTurno(filtro) {
     try {
         let html = ''
-        GenericApiData('/api/turno', 'GET').then(async (data) => {
-            const elementHtml = document.getElementById('informacion');
+        GenericApiData('/api/turno', 'GET')
+        .then((data) => {
+            const elementHtml = document.querySelector('#informacion');
             if (!data.length) return
-            const filterData = filtro ? data.filter(turno => {
-                if (filtro.type === 'especialidad') return turno.especialidad === filtro.value
-                return turno.profesional === filtro.value
+            const filterData = filtro?.value ? data.filter(turno => {
+                if (filtro?.type === 'especialidad') return turno?.especialidad === filtro?.value
+                return turno?.profesional === filtro?.value
             }) : data
             if (!filterData.length) {
                 elementHtml.innerHTML = `
@@ -102,16 +108,15 @@ function listTurno(filtro) {
                 `;
                 return
             }
-            for(let element of filterData){
-                const id = element['_id']
-                const profesional = await getDataProfesional(element.profesional)
+            data.forEach(turno => {
+                const id = turno['_id']
                 html +=`
                     <tr>
                         <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
-                            ${profesional.nombre}
+                            ${turno?.profesional ?? "Sin nombre"}
                         </td>
-                        <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">${element.especialidad}</td>
-                        <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">${element.fecha} ${element.hora}</td>
+                        <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">${turno.especialidad}</td>
+                        <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">${turno.fecha} ${turno.hora}</td>
                         <td class="text-center ">
                             <i
                             onclick="javascript: redirectPage('turno/${id}')" 
@@ -122,7 +127,7 @@ function listTurno(filtro) {
                             class="fa-solid fa-trash mr-2 text-sm cursor-pointer text-red-500"></i>
                         </td>
                     </tr>`;
-            }
+            });
             elementHtml.innerHTML = html
         });
     } catch (error) {
