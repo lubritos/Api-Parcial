@@ -1,8 +1,17 @@
-## Descripcion
+
+# Proyecto: Sistema Hospital
+
+## Descripción
 
 Vamos a desarrollar la lógica de una aplicación segura y modular para la gestión de un sistema de turnos médicos, utilizando Node.js, Express y MongoDB, que implemente operaciones CRUD, autenticación por JWT, control de acceso por roles y testing.
+---
 
-Qué módulos/lógica queremos en el sistema:
+## ¿Por qué este proyecto?
+
+Este proyecto fue creado como una práctica para aprender los fundamentos de Programacion 2 y cómo estructurar proyectos simples.
+
+
+
 
 ### 💻 Gestión de Usuarios
 
@@ -11,7 +20,7 @@ Hash de contraseñas.
 Autenticación con JWT. (Roles: admin, cliente)
 Middleware para proteger rutas y restringir acceso según rol.
 
-### 💻 Gestión de Productos
+### 💻 Gestión de Turnos
 
 CRUD completo de turnos (admin).
 Validación de datos (precio, nombre requerido, etc.).
@@ -56,3 +65,34 @@ Lógica de control de agenda, consulta filtrando por especialidad, profesional, 
    | - routes
    | - services
    index.js
+
+---
+
+## Instalación
+
+1. Clona este repositorio en tu máquina local:
+
+```bash
+   git clone https://github.com/lubritos/Api-Parcial.git
+```
+
+2. Navega al directorio del proyecto:
+
+```bash
+cd API-PARCIAL
+```
+
+3. Asegúrate de tener Node.js instalado en tu sistema.
+
+
+4. Instala las dependencias:
+
+```bash
+npm install
+```
+
+5. Ejecuta el programa:
+
+```bash
+npm run start
+```

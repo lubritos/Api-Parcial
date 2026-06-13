@@ -45,7 +45,7 @@
             </button>
             <button
                 id="btnCerrarSecion"
-                onclick="logoutUser()"
+                onclick="javascript:logoutUser()"
                 title="Cerrar secion"
                 class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -138,7 +138,10 @@
                         Especialidad
                     </th>
                     <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
-                        fecha y hora
+                        Fecha y Hora
+                    </th>
+                    <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
+                        Estado
                     </th>
                     <th class="border-b border-gray-200 p-4 pt-0 pr-8 pb-3 text-left font-medium text-gray-400 dark:border-gray-600 dark:text-gray-200">
                         Acciones
@@ -147,7 +150,7 @@
             </thead>
             <tbody class="bg-white dark:bg-gray-800" id="informacion">
                 <tr class="py-4">
-                    <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
+                    <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="5">
                         No hay turnos registrados
                     </td>
                 </tr>

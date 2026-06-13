@@ -25,25 +25,29 @@
                         </h1>
                     </div>
                 </div>
-
                 <div class="flex gap-3">
                     <button
                         onclick="redirectPage('portal')"
                         class="px-4 py-2 rounded hover:bg-indigo-500 transition">
                         Inicio
                     </button>
-
                     <button
                         onclick="redirectPage('turno')"
                         class="px-4 py-2 rounded hover:bg-indigo-500 transition">
                         Mis Turnos
                     </button>
-
                     <button
                         id="btnProfesionales"
                         onclick="redirectPage('profesional')"
                         class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
                         Profesionales
+                    </button>
+                    <button
+                        id="btnCerrarSecion"
+                        onclick="javascript:logoutUser()"
+                        title="Cerrar secion"
+                        class="px-4 py-2 rounded hover:bg-indigo-500 transition hidden">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
                 </div>
             </div>
@@ -131,8 +135,8 @@
                     class="w-full pl-2 py-2 border rounded-sm" name="estado"
                 >
                     <option selected value="Pendiente">Pendiente</option>
-                    <option  value="Pendiente">Enviado</option>
-                    <option  value="Pendiente">Cancelado</option>
+                    <option  value="Enviado">Enviado</option>
+                    <option  value="Cancelado">Cancelado</option>
                 </select>
             </div>
             <input type="hidden" id="pacienteId" name="pacienteId" value="" />
@@ -244,13 +248,17 @@
             const pathName = document.location.pathname
             const urlSplit = pathName.split('/');
             const turnoId = urlSplit[urlSplit.length - 1];
+            let pacienteId = document.getElementById('pacienteId').value
+            if (getRol() === 'admin') {
+                pacienteId = document.getElementById('paciente').value
+            }
             if (turnoId && turnoId !== 'nuevo_turno') {
                 editItem(turnoId, 'turno', {
                     profesional: document.getElementById('profesional').value,
                     especialidad: document.getElementById('especialidad').value,
                     fecha: document.getElementById('fecha').value,
                     hora: document.getElementById('hora').value,
-                    paciente: document.getElementById('paciente').value,
+                    paciente: pacienteId,
                     estado: document.getElementById('estado').value
                 });
                 return

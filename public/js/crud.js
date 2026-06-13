@@ -94,6 +94,7 @@ function listTurno(filtro) {
         .then((data) => {
             const elementHtml = document.querySelector('#informacion');
             if (!data.length) return
+            debugger
             const filterData = filtro?.value ? data.filter(turno => {
                 if (filtro?.type === 'especialidad') return turno?.especialidad === filtro?.value
                 return turno?.profesional === filtro?.value
@@ -101,14 +102,14 @@ function listTurno(filtro) {
             if (!filterData.length) {
                 elementHtml.innerHTML = `
                     <tr class="py-4">
-                        <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="4">
+                        <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 text-center dark:border-gray-700 dark:text-gray-400" colspan="5">
                             No hay turnos registrados
                         </td>
                     </tr>
                 `;
                 return
             }
-            data.forEach(turno => {
+            filterData.forEach(turno => {
                 const id = turno['_id']
                 html +=`
                     <tr>
@@ -118,8 +119,15 @@ function listTurno(filtro) {
                         <td class="border-b border-gray-100 p-4 pl-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
                             ${turno?.profesional ?? "Sin nombre"}
                         </td>
-                        <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">${turno.especialidad}</td>
-                        <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">${turno.fecha} ${turno.hora}</td>
+                        <td class="border-b border-gray-100 p-4 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                        ${turno.especialidad}
+                        </td>
+                        <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                        ${turno.fecha} ${turno.hora}
+                        </td>
+                        <td class="border-b border-gray-100 p-4 pr-8 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                        ${turno.estado}
+                        </td>
                         <td class="text-center ">
                             <i
                             onclick="javascript: redirectPage('turno/${id}')" 
@@ -139,7 +147,7 @@ function listTurno(filtro) {
         if (!data) {
             elementHtml.innerHTML = `
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <p>
                             No se encontraron turnos
                         </p>
@@ -151,29 +159,35 @@ function listTurno(filtro) {
     }
 }
 
-function createItem(config) {
+async function createItem(config) {
     const { endpoint, data, redirect } = config;
     if (!validateForm(endpoint)) {
         return;
     }
-    const response = GenericApiData(`/api/${endpoint}`, 'POST', data)
+    const response = await GenericApiData(`/api/${endpoint}`, 'POST', data)
 
     if (response.error) {
         alert(response.message);
         return;
     }
+    debugger
+    if (endpoint === 'user') {
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('userId', response.id);
+        sessionStorage.setItem('rol', response.rol);
+    }
     redirectPage(redirect);
 }
 
-function editItem(id, endpoint, data) {
-    const result = GenericApiData(`/api/${endpoint}/${id}`, 'PUT', data);
+async function editItem(id, endpoint, data) {
+    const result = await GenericApiData(`/api/${endpoint}/${id}`, 'PUT', data);
     if (result) {
         redirectPage(endpoint);
     }
 }
 
-function deleteItem(id, endpoint) {
-    const result = GenericApiData(`/api/${endpoint}/${id}`, 'DELETE');
+async function deleteItem(id, endpoint) {
+    const result = await GenericApiData(`/api/${endpoint}/${id}`, 'DELETE');
     if (result) {
         location.reload();
     }

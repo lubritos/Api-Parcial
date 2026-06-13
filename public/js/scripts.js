@@ -3,7 +3,7 @@ function GenericApiData(url, type, data) {
         method: type,
         headers: {
             'Content-Type': 'application/json',
-            'authorization': 'Bearer ' + getToken()
+            'authorization': 'Bearer ' + sessionStorage.getItem('token')
         },
         body: JSON.stringify(data)
     })
@@ -45,6 +45,7 @@ async function loginUser() {
 }
 
 function logoutUser() {
+    console.log('logout');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userId');
     sessionStorage.removeItem('rol');

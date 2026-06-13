@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = {
     jwtSecret: 'supersecretkey',
-    jwtExpiresIn: '1h',
+    jwtExpiresIn: '5h',
 };
 
 function generateToken(payload) {
