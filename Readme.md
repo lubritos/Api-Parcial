@@ -55,16 +55,18 @@ Lógica de control de agenda, consulta filtrando por especialidad, profesional, 
 
 ### Estructura del Proyecto
 
--- public
--- src
-   | - tests
-   | - config
-   | - controller
-   | - middlewares
-   | - models
-   | - routes
-   | - services
-   index.js
+```bash
+   -- public
+   -- src
+      | - tests
+      | - config
+      | - controller
+      | - middlewares
+      | - models
+      | - routes
+      | - services
+      index.js
+```
 
 ---
 
